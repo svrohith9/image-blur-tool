@@ -1,6 +1,7 @@
 // src/App.js
 import React from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom"; // Import HashRouter
 import Header from "./Header";
 import Home from "./Home";
 import Contact from "./Contact";
