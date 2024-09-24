@@ -1,5 +1,5 @@
 // src/ImageUploader.js
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useRef } from "react";
 import { useDropzone } from "react-dropzone";
 import {
   Box,
@@ -22,6 +22,9 @@ const ImageUploader = () => {
   const [loading, setLoading] = useState(false);
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [error, setError] = useState("");
+
+  const imageRef = useRef(null);
+  const canvasRef = useRef(null);
 
   const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
     if (rejectedFiles.length > 0) {
@@ -64,6 +67,35 @@ const ImageUploader = () => {
     }
     setOpenSnackbar(false);
   };
+
+  const handleDownload = () => {
+    if (!imageRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const img = imageRef.current;
+
+    // Calculate the scale factor between natural and displayed size
+    const scaleX = img.naturalWidth / img.clientWidth;
+    const scaleY = img.naturalHeight / img.clientHeight;
+    const scaleFactor = Math.min(scaleX, scaleY); // Use the smaller scale to maintain aspect ratio
+
+    // Set canvas dimensions to natural size
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+
+    // Apply scaled blur filter
+    ctx.filter = `blur(${blur * scaleFactor}px)`;
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+    // Create a link to download the image
+    const link = document.createElement("a");
+    link.download = "blurred-image.png";
+    link.href = canvas.toDataURL("image/png");
+    link.click();
+  };
+
+  const hasChanged = blur > 0;
 
   return (
     <Box
@@ -139,6 +171,7 @@ const ImageUploader = () => {
             >
               <Zoom>
                 <img
+                  ref={imageRef}
                   src={image}
                   alt="Uploaded"
                   style={{
@@ -164,11 +197,31 @@ const ImageUploader = () => {
                   "&:hover": {
                     transform: "scale(1.05)",
                   },
+                  mr: 2, // Adds right margin for spacing
                 }}
               >
                 Remove Image
               </Button>
+
+              {hasChanged && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleDownload}
+                  sx={{
+                    transition: "transform 0.2s",
+                    "&:hover": {
+                      transform: "scale(1.05)",
+                    },
+                  }}
+                >
+                  Download Blurred Image
+                </Button>
+              )}
             </Box>
+
+            {/* Hidden Canvas for Image Processing */}
+            <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
           </Box>
         </Fade>
       )}
