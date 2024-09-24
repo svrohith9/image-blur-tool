@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/image-blur-tool/static/css/main.d248d774.css",
+    "main.js": "/image-blur-tool/static/js/main.bdd7c1e2.js",
+    "index.html": "/image-blur-tool/index.html",
+    "main.d248d774.css.map": "/image-blur-tool/static/css/main.d248d774.css.map",
+    "main.bdd7c1e2.js.map": "/image-blur-tool/static/js/main.bdd7c1e2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d248d774.css",
+    "static/js/main.bdd7c1e2.js"
+  ]
+}
