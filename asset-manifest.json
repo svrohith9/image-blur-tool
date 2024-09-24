@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/image-blur-tool/static/css/main.d248d774.css",
-    "main.js": "/image-blur-tool/static/js/main.427cb7b5.js",
+    "main.js": "/image-blur-tool/static/js/main.56ad911e.js",
     "index.html": "/image-blur-tool/index.html",
     "main.d248d774.css.map": "/image-blur-tool/static/css/main.d248d774.css.map",
-    "main.427cb7b5.js.map": "/image-blur-tool/static/js/main.427cb7b5.js.map"
+    "main.56ad911e.js.map": "/image-blur-tool/static/js/main.56ad911e.js.map"
   },
   "entrypoints": [
     "static/css/main.d248d774.css",
-    "static/js/main.427cb7b5.js"
+    "static/js/main.56ad911e.js"
   ]
 }
